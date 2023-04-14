@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bíblia online</title>
+</head>
+<body>
+    <div id="nome"></div>
+</body>
+</html>
+
+<script>
+
+function getVersiculo(){
+    console.log('getVersiculo')
+
+    fetch('https://www.abibliadigital.com.br/api/verses/nvi/sl/23Buscar')
+        .then((result) => result.json())
+        .then(function(data) {
+            let livro = data.book.name;
+
+            console.log(livro)
+
+            document.querySelector('#nome').append( livro )
+        })
+
+    
+}
+
+
+getVersiculo();
+</script>
