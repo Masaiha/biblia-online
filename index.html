@@ -7,7 +7,19 @@
     <title>Bíblia online</title>
 </head>
 <body>
+    <select id="books">
+        <option value="sl">salmos</option>
+    </select>
+    
+    <select id="captions">
+        <option value="1">1</option>
+        <option value="2">2</option>
+    </select>
+
     <div id="nome"></div>
+    <div id="texto"></div>
+
+    <button onclick="getVersiculo();">carregar</button>
 </body>
 </html>
 
@@ -21,14 +33,23 @@ function getVersiculo(){
         .then(function(data) {
             let livro = data.book.name;
 
+            let captions = data.verses;
+
+            let texto = '';
+
+            captions.forEach(element => {
+                texto += texto + ' - ' + element.text;
+            });
+
             console.log(livro)
 
             document.querySelector('#nome').append( livro )
+            document.querySelector('#texto').append( texto )
         })
 
     
 }
 
 
-getVersiculo();
+
 </script>
