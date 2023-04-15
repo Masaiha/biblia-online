@@ -46,6 +46,51 @@
             <option value="3">3</option>
             <option value="4">4</option>
             <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">11</option>
+            <option value="22">12</option>
+            <option value="23">13</option>
+            <option value="24">14</option>
+            <option value="25">15</option>
+            <option value="26">16</option>
+            <option value="27">17</option>
+            <option value="28">18</option>
+            <option value="29">19</option>
+            <option value="30">20</option>
+            <option value="31">11</option>
+            <option value="32">12</option>
+            <option value="33">13</option>
+            <option value="34">14</option>
+            <option value="35">15</option>
+            <option value="36">16</option>
+            <option value="37">17</option>
+            <option value="38">18</option>
+            <option value="39">19</option>
+            <option value="30">20</option>
+            <option value="41">11</option>
+            <option value="42">12</option>
+            <option value="43">13</option>
+            <option value="44">14</option>
+            <option value="45">15</option>
+            <option value="46">16</option>
+            <option value="47">17</option>
+            <option value="48">18</option>
+            <option value="49">19</option>
+            <option value="50">20</option>
         </select>
 
         <button onclick="getVersiculo();" class="btn btn-primary">carregar</button>
@@ -105,14 +150,16 @@ function getVersiculo(){
     let caption = document.getElementById('captions').value;
 
     var texto = '<p>';
-    
+    let quantidadeVersiculos = 0;
+
     fetch(baseUrl + '/verses/nvi/' + book + '/' + caption, options) 
         .then((result) => result.json())
         .then(function(data) {
             let livro = data.book.name;
             let captions = data.verses;
+            quantidadeVersiculos = i;
 
-            captions.forEach(element => {              
+            captions.forEach((element, i) => {              
                 texto += '-' + element.text + '</p> <p>';
             });
 
