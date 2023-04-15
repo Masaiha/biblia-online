@@ -1,0 +1,58 @@
+@media (min-width: 760px) {
+    body{
+        text-align: justify;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }    
+
+    .container-txt{
+        max-width: 80%;
+    }
+}
+
+@media (max-width: 760px) {
+    body{
+        text-align: justify;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }    
+
+    .container-txt{
+        max-width: 90%;
+    }
+}
+
+
+
+.container-txt{
+    background: #101010;
+    color: whitesmoke;
+    font-family: sans-serif;
+    padding: 6.5px, 1px;
+    padding: 1em;
+    padding-top: 0.2em;
+    margin-top: 1em;
+}
+
+select {
+    max-width: 15em;
+}
+
+.container-menu{
+    display: flex;
+    margin: 1em;
+}
+
+.container-menu select {
+    margin-right: 1.5em;
+}
+
+.container-menu button {
+    width: 8em;
+}
+
+p {
+    margin-bottom: 0.2rem;
+}
