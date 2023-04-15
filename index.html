@@ -5,49 +5,120 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bíblia online</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    <style>
+        .container-txt{
+            background: #101010;
+            color: whitesmoke;
+            font-family: sans-serif;
+            padding: 6.5px, 1px;
+            padding: 1em;
+            padding-top: 0.2em;
+            margin-top: 1em;
+        }
+
+        select {
+            max-width: 15em;
+        }
+
+        .container-menu{
+            display: flex;
+            margin: 1em;
+        }
+
+        .container-menu select {
+            margin-right: 1.5em;
+        }
+
+        .container-menu button {
+            width: 8em;
+        }
+    </style>
 </head>
 <body>
-    <select id="books">
-        <option value="sl">salmos</option>
-    </select>
+    <section class="container-menu">
+        <select id="books" class="form-select" aria-label="Default"></select>
     
-    <select id="captions">
-        <option value="1">1</option>
-        <option value="2">2</option>
-    </select>
+        <select id="captions" class="form-select">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
 
-    <div id="nome"></div>
-    <div id="texto"></div>
+        <button onclick="getVersiculo();" class="btn btn-primary">carregar</button>
+    </section>
 
-    <button onclick="getVersiculo();">carregar</button>
+    <section class="container-txt">
+        <p id="texto"></p>
+    </section>
 </body>
 </html>
 
 <script>
 
-function getVersiculo(){
-    console.log('getVersiculo')
+let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlNhdCBBcHIgMTUgMjAyMyAwMDoyMDozMSBHTVQrMDAwMC5tYXNhbm9yaS5paGFAZ21haWwuY29tIiwiaWF0IjoxNjgxNTE4MDMxfQ.QIH8WoMHghWSljgVJq9DwO2LmhMQb_xnWQo4YlGPu-E';
 
-    fetch('https://www.abibliadigital.com.br/api/verses/nvi/sl/23Buscar')
+var options = {  
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'bearer ' + token
+      }
+    }
+
+let baseUrl = 'https://www.abibliadigital.com.br/api';
+let books = [];
+
+setTimeout(() => {
+    getBooks();
+}, 500)
+
+function getBooks(){
+    fetch(baseUrl + '/books', options)
+        .then((result) => result.json())
+        .then(data => {
+
+            data.forEach(item => {
+                let abbrev = item.abbrev.pt;
+                let name = item.name;
+
+                books.push({abbrev,name});
+            });
+        })
+        .finally(() => {
+            let str = '';
+
+            books.forEach(caption => {
+                str += "<option value=" + caption.abbrev +">" + caption.name + "</option>";
+            });
+
+            document.querySelector('#books').innerHTML = str;
+        })
+        .catch(error => console.log(error));
+}
+
+function getVersiculo(){
+    let book = document.getElementById('books').value;
+    let caption = document.getElementById('captions').value;
+
+    var texto = '<p>';
+    
+    fetch(baseUrl + '/verses/nvi/' + book + '/' + caption, options) 
         .then((result) => result.json())
         .then(function(data) {
             let livro = data.book.name;
-
             let captions = data.verses;
 
-            let texto = '';
-
-            captions.forEach(element => {
-                texto += texto + ' - ' + element.text;
+            captions.forEach(element => {              
+                texto += '-' + element.text + '</p> <p>';
             });
 
-            console.log(livro)
-
-            document.querySelector('#nome').append( livro )
-            document.querySelector('#texto').append( texto )
+            document.querySelector('#texto').innerHTML = texto;
         })
 
-    
 }
 
 
