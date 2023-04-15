@@ -102,6 +102,7 @@ function getBooks(){
             document.querySelector('#books').innerHTML = str;
 
             getChaptersCount('sl');
+            getVersiculo();
         })
         .catch(error => console.log(error));
 }
