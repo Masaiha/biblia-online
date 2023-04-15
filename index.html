@@ -153,14 +153,12 @@ function getVersiculo(){
     let caption = document.getElementById('captions').value;
 
     var texto = '<p>';
-    let quantidadeVersiculos = 0;
 
     fetch(baseUrl + '/verses/nvi/' + book + '/' + caption, options) 
         .then((result) => result.json())
         .then(function(data) {
             let livro = data.book.name;
             let captions = data.verses;
-            quantidadeVersiculos = i;
 
             captions.forEach((element, i) => {              
                 texto += '-' + element.text + '</p> <p>';
