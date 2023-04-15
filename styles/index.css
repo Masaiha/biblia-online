@@ -20,11 +20,13 @@
     }    
 
     .container-txt{
-        max-width: 90%;
+        max-width: 94%;
     }
 }
 
-
+body{
+    background: #d8d8d8;
+}
 
 .container-txt{
     background: #101010;
