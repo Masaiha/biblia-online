@@ -84,7 +84,7 @@
     <section class="container-menu">
         <!-- <select id="books" class="form-select" aria-label="Default"></select> -->
     
-        <h2 id="book-h2"></h2>
+        <h2 id="book-h2">Gênesis</h2>
         <input type="hidden" id="book-h2-value" value="gn">
         <input type="hidden" id="chapter-value" value="1">
 
@@ -103,10 +103,12 @@
             </section> -->
         </section>
         <section class="container-chapters">
+            <select class="form-select mt-4 mb-4" 
+                    id="livros-menu-lateral"
+                    onclick="MontarPrimeiraTelaComLivroMenuLateral()">
+            </select>
             <h4>Capítulos</h4>
-            <div style="width: 86%;" id="chapter-btns">
-                
-            </div>
+            <div style="width: 86%;" id="chapter-btns"></div>
         </section>
     </section>
 </body>
@@ -162,18 +164,29 @@ function ListarLivros(){
 }
 
 function MontarMenuVersiculosLaterais(bookAbbrev){
-    // let str = '';
-    let str2 = '';
+    CarregarLivrosMenuLateral();
+    CarregarBotoesVersiculosMenuLateral(bookAbbrev);
+}
 
-    let _book = books.find(b => b.abbrev == bookAbbrev);
+function CarregarLivrosMenuLateral(){
+    let str = '';
+
+    books.forEach(caption => {
+        str += "<option value=" + caption.abbrev +">" + caption.name + "</option>";
+    });
+
+    document.getElementById('livros-menu-lateral').innerHTML  = str;
+}
+
+function CarregarBotoesVersiculosMenuLateral(bookAbbrev){   
+    let str2 = ''; 
+    let _book = books.find(b => b.abbrev == bookAbbrev);    
 
     for (let index = 1; index <= _book.chapter; index++) {
-        // str += "<option value=" + index +">" + index + "</option>";        
         str2 += "<a class='chapter-btns-values' onclick='MontarTelaComCapitulo(\""+ index +"\")' value=" + index +">" + index + "</a>"; 
     }
-    
-    // document.querySelector('#chapter').innerHTML = str;
-    document.querySelector('#chapter-btns').innerHTML = str2;
+
+    document.getElementById('chapter-btns').innerHTML = str2;
 }
 
 function MontarTelaTexto(book, chapter){
@@ -200,12 +213,24 @@ function MontarTelaTexto(book, chapter){
             document.querySelector('#texto').innerHTML = texto;
         })
 
+    CarregarBotoesVersiculosMenuLateral(_book);
 }
-
 
 function MontarPrimeiraTelaComLivro(chapter){
     MontarTelaTexto(chapter, 1);
+    AtualizarMenusDeLivros(chapter);
 
+    document.getElementById('livros-menu-lateral').value = chapter;
+}
+
+function MontarPrimeiraTelaComLivroMenuLateral(){
+    let chapter = document.getElementById('livros-menu-lateral').value
+
+    MontarTelaTexto(chapter, 1);
+    AtualizarMenusDeLivros(chapter);
+}
+
+function AtualizarMenusDeLivros(chapter){
     books.forEach(book => {
         if(book.abbrev == chapter){
             document.getElementById('book-h2').innerText = book.name;  

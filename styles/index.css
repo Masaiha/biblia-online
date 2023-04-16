@@ -25,6 +25,15 @@
     .container-txt{
         max-width: 94%;
     }
+
+    .container-all-txt {
+        flex-direction: column;
+    }
+
+    .container-chapters #chapter-btns {
+        grid-template-columns: repeat(10, 1fr);
+        justify-items: self-end;
+    }
 }
 
 body{
