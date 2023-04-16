@@ -9,26 +9,104 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <link href="./styles/index.css" rel="stylesheet">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <section class="container-menu">
-        <h4> Bíblia NVI - IHA </h4>
-    </section>
+
+    <header>
+        <section>
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container-fluid">
+                  <a class="navbar-brand" href="#" style="color: whitesmoke;">Bíblia NVI - IHA</a>
+                  <button class="navbar-toggler" 
+                          type="button" 
+                          data-bs-toggle="collapse" 
+                          data-bs-target="#navbarSupportedContent" 
+                          aria-controls="navbarSupportedContent" 
+                          aria-expanded="false" 
+                          aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" 
+                       id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                      
+                        <li class="nav-item">
+                            <a class="nav-link" 
+                               aria-current="page" 
+                               href="#">Home</a>
+                        </li>                      
+                        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" 
+                               href="#" 
+                               id="navbarDropdown2" 
+                               role="button" 
+                               data-bs-toggle="dropdown" 
+                               aria-expanded="false">
+                                Livros 2
+                            </a>
+                            <ul id="nav-item-books" 
+                                class="dropdown-menu" 
+                                aria-labelledby="navbarDropdown2">
+                            </ul>
+                        </li>
+
+                        <!-- <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Livros
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li> -->
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Sobre</a>
+                        </li>
+                    </ul>
+                    <!-- <form class="d-flex">
+                      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                      <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form> -->
+                  </div>
+                </div>
+              </nav>
+        </section>
+        <!-- <img src="./wwwroot/images/bg-header.jpg"/> -->
+    </header>
 
     <section class="container-menu">
-        <select id="books" class="form-select" aria-label="Default"></select>
+        <!-- <select id="books" class="form-select" aria-label="Default"></select> -->
     
-        <select id="chapter" class="form-select"></select>
+        <h2 id="book-h2"></h2>
+        <input type="hidden" id="book-h2-value" value="gn">
+        <input type="hidden" id="chapter-value" value="1">
 
-        <button onclick="getVersiculo();" class="btn btn-primary">carregar</button>
+<!-- 
+        <button onclick="getVersiculo();" class="btn btn-primary">carregar</button> -->
+
     </section>
 
-    <section class="container-txt">
-        <p id="texto"></p>
+    <section class="container-all-txt">
+        <section class="container-txt">
+            <p id="texto"></p>
 
-        <section class="btns-navigators" style="margin-top: 1em; display: flex; justify-content: center;">
-            <a class="btn btn-primary" style="margin-right: 4em;" onclick="updatePage('preview')"><</a>
-            <a class="btn btn-primary" onclick="updatePage('next')">></a>
+            <!-- <section class="btns-navigators" style="margin-top: 1em; display: flex; justify-content: center;">
+                <a class="btn btn-primary" style="margin-right: 4em;" onclick="updatePage('preview')"><</a>
+                <a class="btn btn-primary" onclick="updatePage('next')">></a>
+            </section> -->
+        </section>
+        <section class="container-chapters">
+            <h4>Capítulos</h4>
+            <div style="width: 86%;" id="chapter-btns">
+                
+            </div>
         </section>
     </section>
 </body>
@@ -49,12 +127,9 @@ var options = {
 let baseUrl = 'https://www.abibliadigital.com.br/api';
 let books = [];
 
-setTimeout(() => {
-    getBooks();
-    
-}, 500)
+ListarLivros();  
 
-function getBooks(){
+function ListarLivros(){
     fetch(baseUrl + '/books', options)
         .then((result) => result.json())
         .then(data => {
@@ -64,52 +139,62 @@ function getBooks(){
                 let chapter = item.chapters;
 
                 books.push({abbrev, name, chapter});
-            });
-
-            
+            });            
         })
         .finally(() => {
-            let str = '';
+            // let str = '';
+            let str2 = '';
 
             books.forEach(caption => {
-                str += "<option value=" + caption.abbrev +">" + caption.name + "</option>";
+                // str += "<option value=" + caption.abbrev +">" + caption.name + "</option>";
+
+                str2 += "<li><a class='dropdown-item' onclick='MontarPrimeiraTelaComLivro(\""+ caption.abbrev +"\")'>"+ caption.name +"</a></li>";
             });
 
-            document.querySelector('#books').innerHTML = str;
+            // document.querySelector('#books').innerHTML = str;
 
-            getChaptersCount('sl');
-            getVersiculo();
+            document.querySelector('#nav-item-books').innerHTML = str2;
+
+            MontarMenuVersiculosLaterais('gn');
+            MontarTelaTexto();
         })
         .catch(error => console.log(error));
 }
 
-function getChaptersCount(bookAbbrev){
-    let str = '';
+function MontarMenuVersiculosLaterais(bookAbbrev){
+    // let str = '';
+    let str2 = '';
 
     let _book = books.find(b => b.abbrev == bookAbbrev);
 
     for (let index = 1; index <= _book.chapter; index++) {
-        str += "<option value=" + index +">" + index + "</option>";        
+        // str += "<option value=" + index +">" + index + "</option>";        
+        str2 += "<a class='chapter-btns-values' onclick='MontarTelaComCapitulo(\""+ index +"\")' value=" + index +">" + index + "</a>"; 
     }
     
-    document.querySelector('#chapter').innerHTML = str;
+    // document.querySelector('#chapter').innerHTML = str;
+    document.querySelector('#chapter-btns').innerHTML = str2;
 }
 
-function getVersiculo(){
-    let book = ObterValorHtml('books', 'id');
-    let chapter = ObterValorHtml('chapter', 'id');
+function MontarTelaTexto(book, chapter){
+    let _book = document.getElementById('book-h2-value').value;
+    let _chapter = document.getElementById('chapter-value').value;
+    
+    if(book != null && book != undefined)
+        _book = book;
+
+    if(chapter != null && chapter != undefined)
+        _chapter = chapter;
 
     var texto = '<p>';
 
-    fetch(baseUrl + '/verses/nvi/' + book + '/' + chapter, options) 
+    fetch(baseUrl + '/verses/nvi/' + _book + '/' + _chapter, options) 
         .then((result) => result.json())
         .then(function(data) {
-            let livro = data.book.name;
-            let chapters = data.verses;
+            let _chapters = data.verses;
 
-            chapters.forEach((element) => {   
-                console.log(element)           
-                texto +=    element.number + '. ' + element.text + '</p> <p>';
+            _chapters.forEach((element) => {          
+                texto +=  element.number + '. ' + element.text + '</p> <p>';
             });
 
             document.querySelector('#texto').innerHTML = texto;
@@ -117,17 +202,29 @@ function getVersiculo(){
 
 }
 
-function ObterValorHtml(chave, tipo){
-    if(tipo == 'classe')
-        return document.querySelector('.' + chave).value;
-    else
-        return document.getElementById(chave).value;
+
+function MontarPrimeiraTelaComLivro(chapter){
+    MontarTelaTexto(chapter, 1);
+
+    books.forEach(book => {
+        if(book.abbrev == chapter){
+            document.getElementById('book-h2').innerText = book.name;  
+            document.getElementById('book-h2-value').value = book.abbrev;
+            document.getElementById('chapter-value').value = chapter;
+        }
+    });
 }
 
-let SelectBooks = document.querySelector('#books');
-SelectBooks.addEventListener('change',(e) => {
-    let abbrev = SelectBooks.value;
-    getChaptersCount(abbrev)
-});
+function MontarTelaComCapitulo(capitulo){
+    let _livro = document.getElementById('book-h2-value').value;
+    
+    MontarTelaTexto(_livro, capitulo);
 
+    books.forEach(book => {
+        if(book.abbrev == _livro){
+            document.getElementById('book-h2').innerText = book.name;  
+            document.getElementById('book-h2-value').value = book.abbrev;
+        }
+    });
+}
 </script>
