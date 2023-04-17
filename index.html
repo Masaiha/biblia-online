@@ -84,7 +84,7 @@
     <section class="container-menu">
         <!-- <select id="books" class="form-select" aria-label="Default"></select> -->
     
-        <h2 id="book-h2">Gênesis</h2>
+        <h2 id="book-h2">Gênesis - cap.: 1</h2>
         <input type="hidden" id="book-h2-value" value="gn">
         <input type="hidden" id="chapter-value" value="1">
 
@@ -233,7 +233,7 @@ function MontarPrimeiraTelaComLivroMenuLateral(){
 function AtualizarMenusDeLivros(chapter){
     books.forEach(book => {
         if(book.abbrev == chapter){
-            document.getElementById('book-h2').innerText = book.name;  
+            document.getElementById('book-h2').innerText = book.name  + ' - cap.: 1';  
             document.getElementById('book-h2-value').value = book.abbrev;
             document.getElementById('chapter-value').value = chapter;
         }
@@ -247,7 +247,7 @@ function MontarTelaComCapitulo(capitulo){
 
     books.forEach(book => {
         if(book.abbrev == _livro){
-            document.getElementById('book-h2').innerText = book.name;  
+            document.getElementById('book-h2').innerText = book.name + ' - cap.: ' + capitulo;  
             document.getElementById('book-h2-value').value = book.abbrev;
         }
     });
