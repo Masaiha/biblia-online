@@ -108,7 +108,7 @@
         <section class="container-chapters">
             <select class="form-select mt-4 mb-4" 
                     id="livros-menu-lateral"
-                    onclick="MontarPrimeiraTelaComLivroMenuLateral()">
+                    onchange="MontarPrimeiraTelaComLivroMenuLateral()">
             </select>
             <h4>Capítulos</h4>
             <div style="width: 86%;" id="chapter-btns"></div>
@@ -226,13 +226,15 @@ function MontarPrimeiraTelaComLivro(chapter){
     AtualizarMenusDeLivros(chapter);
 
     document.getElementById('livros-menu-lateral').value = chapter;
+    ScrollTop0();
 }
 
 function MontarPrimeiraTelaComLivroMenuLateral(){
     let chapter = document.getElementById('livros-menu-lateral').value
-
+    
     MontarTelaTexto(chapter, 1);
     AtualizarMenusDeLivros(chapter);
+    ScrollTop0();
 }
 
 function AtualizarMenusDeLivros(chapter){
@@ -257,6 +259,10 @@ function MontarTelaComCapitulo(capitulo){
         }
     });
 
+    ScrollTop0();
+}
+
+function ScrollTop0(){
     document.getElementById('scroll-top').click();
 }
 
