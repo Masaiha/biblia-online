@@ -16,9 +16,9 @@
 
     <header id="header-content">
         <section>
-            <nav class="navbar navbar-expand-lg navbar-light">
+            <nav class="navbar navbar-expand-lg navbar-light" style="background: #864903;">
                 <div class="container-fluid">
-                  <a class="navbar-brand" href="#" style="color: whitesmoke;">Bíblia NVI - IHA</a>
+                  <a class="navbar-brand" href="#" style="color: whitesmoke;;">Bíblia NVI - IHA</a>
                   <button class="navbar-toggler" 
                           type="button" 
                           data-bs-toggle="collapse" 
@@ -69,6 +69,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Sobre</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="" href="#" onclick="ModoEscuro()">Modo Escuro</a>
+                        </li>
                     </ul>
                     <!-- <form class="d-flex">
                       <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -117,6 +120,7 @@
 
 <script>
 
+let modoEscuro = false;
 let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlNhdCBBcHIgMTUgMjAyMyAwMDoyMDozMSBHTVQrMDAwMC5tYXNhbm9yaS5paGFAZ21haWwuY29tIiwiaWF0IjoxNjgxNTE4MDMxfQ.QIH8WoMHghWSljgVJq9DwO2LmhMQb_xnWQo4YlGPu-E';
 
 var options = {  
@@ -256,4 +260,16 @@ function MontarTelaComCapitulo(capitulo){
     document.getElementById('scroll-top').click();
 }
 
+function ModoEscuro(){
+    modoEscuro = !modoEscuro;
+
+    let body = document.querySelector('body')
+
+    body.style.backgroundColor = "#000000";
+    body.style.color = "whitesmoke";
+
+    let menuVersos = document.querySelector('.container-chapters');
+
+    menuVersos.style.backgroundColor = "#000000"
+}
 </script>

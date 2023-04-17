@@ -36,10 +36,6 @@
     }
 }
 
-body{
-    background: #ededed;
-}
-
 header {
     /* background:  #ff009e; */
     background: #864903;
@@ -68,7 +64,7 @@ header {
 .container-chapters div{
     width: 86%;
     display: grid;
-    grid-template-columns: 1.6em 1.6em 1.6em 1.6em 1.6em;
+    grid-template-columns: repeat(4, 1.6em);
 }
 
 .container-chapters a {
@@ -79,10 +75,6 @@ header {
 .container-chapters a:hover {
     color: whitesmoke;
     background: rgb(120, 112, 112);
-}
-
-select {
-    max-width: 15em;
 }
 
 .container-menu{
@@ -105,7 +97,3 @@ select {
 p {
     margin-bottom: 0.2rem;
 }
-
-.navbar-nav .nav-item .nav-link{
-    color: whitesmoke
-  }
