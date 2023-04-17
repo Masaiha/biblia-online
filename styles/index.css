@@ -1,4 +1,4 @@
-@media (min-width: 760px) {
+@media (min-width: 520px) {
     body{
         text-align: justify;
         display: flex;
@@ -14,7 +14,7 @@
     }
 }
 
-@media (max-width: 760px) {
+@media (max-width: 520px) {
     body{
         text-align: justify;
         display: flex;
