@@ -65,12 +65,19 @@
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
                             </ul>
                         </li> -->
-                        
+
                         <li class="nav-item">
                             <a class="nav-link" href="#">Sobre</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#" onclick="ModoEscuro()">Modo Escuro</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Alterar Tamanho fonte</a>
+                            <section class="menu-lateral-btns-fontSize">
+                                <a class="btn" href="#" onclick="OnFontSizeChange('-');">-</a><p>  /  </p><a class="btn" href="#" onclick="OnFontSizeChange('+');">+</a>
+                            </section>
                         </li>
                     </ul>
                     <!-- <form class="d-flex">
@@ -114,12 +121,19 @@
             <div style="width: 86%;" id="chapter-btns"></div>
         </section>
     </section>
+
     <a href="#header-content" style="display: none;" id="scroll-top"></a>
+
+
+    <footer id="footer-content">
+
+    </footer>
 </body>
 </html>
 
 <script>
 
+let fontSize = 1;
 let modoEscuro = false;
 let token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlNhdCBBcHIgMTUgMjAyMyAwMDoyMDozMSBHTVQrMDAwMC5tYXNhbm9yaS5paGFAZ21haWwuY29tIiwiaWF0IjoxNjgxNTE4MDMxfQ.QIH8WoMHghWSljgVJq9DwO2LmhMQb_xnWQo4YlGPu-E';
 
@@ -277,5 +291,15 @@ function ModoEscuro(){
     let menuVersos = document.querySelector('.container-chapters');
 
     menuVersos.style.backgroundColor = "#000000"
+}
+
+function OnFontSizeChange(operator){
+    if(operator == "-"){
+        fontSize -= .1;
+    }else{
+        fontSize += .1;
+    }
+
+    document.querySelector('body').style.fontSize = fontSize + 'em';
 }
 </script>

@@ -20,11 +20,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-    }    
-
-    .container-txt{
-        /* max-width: 94%; */
-    }
+    } 
 
     .container-all-txt {
         flex-direction: column;
@@ -95,4 +91,19 @@ header {
 
 p {
     margin-bottom: 0.2rem;
+}
+
+.menu-lateral-btns-fontSize{
+    display: flex;
+    justify-content: start;
+}
+
+.menu-lateral-btns-fontSize p {
+    margin-left: 2em;
+    margin-right: 2em;
+}
+
+.menu-lateral-btns-fontSize a {
+    background: #3f0a0a;
+    color: whitesmoke;
 }
