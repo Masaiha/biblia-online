@@ -10,7 +10,12 @@
         max-width: 50%;
 
         /* background: #000000; 
-        color: whitesmoke;*/
+        color: w
+        hitesmoke;*/
+    }
+
+    .menu-menu-lateral-btns-fontSize {
+        display: none !important;
     }
 }
 
