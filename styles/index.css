@@ -17,6 +17,10 @@
     .menu-menu-lateral-btns-fontSize {
         display: none !important;
     }
+
+    #chapter-btns-top{
+        display: none;
+    }
 }
 
 @media (max-width: 520px) {
@@ -34,6 +38,16 @@
     .container-chapters #chapter-btns {
         grid-template-columns: repeat(10, 1fr);
         justify-items: self-end;
+    }
+
+    #chapter-btns-top{
+        background: #cdcdcd;
+        display: grid;
+        grid-template: 2em 2em;
+        grid-template-columns: repeat(10, 1fr);
+        justify-items: center;
+        width: 100% !important;
+        padding: .3em;
     }
 }
 

@@ -104,6 +104,7 @@
     </section>
 
     <section class="container-all-txt">
+        <div style="width: 86%;" id="chapter-btns-top"></div>
         <section class="container-txt">
             <p id="texto"></p>
 
@@ -206,6 +207,7 @@ function CarregarBotoesVersiculosMenuLateral(bookAbbrev){
     }
 
     document.getElementById('chapter-btns').innerHTML = str2;
+    document.getElementById('chapter-btns-top').innerHTML = str2;
 }
 
 function MontarTelaTexto(book, chapter){
@@ -285,12 +287,12 @@ function ModoEscuro(){
 
     let body = document.querySelector('body')
 
-    body.style.backgroundColor = "#000000";
-    body.style.color = "whitesmoke";
+    body.style.backgroundColor = "#0d0d0d";
+    body.style.color = "#a1a1a1";
 
     let menuVersos = document.querySelector('.container-chapters');
 
-    menuVersos.style.backgroundColor = "#000000"
+    menuVersos.style.backgroundColor = "#0d0d0d"
 }
 
 function OnFontSizeChange(operator){
