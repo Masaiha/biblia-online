@@ -41,7 +41,7 @@
     }
 
     #chapter-btns-top{
-        background: #cdcdcd;
+        background: #0d0d0d;
         display: grid;
         grid-template: 2em 2em;
         grid-template-columns: repeat(10, 1fr);
