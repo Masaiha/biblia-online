@@ -70,7 +70,7 @@
                             <a class="nav-link" href="#">Sobre</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" onclick="ModoEscuro()">Modo Escuro</a>
+                            <a class="nav-link" href="#" onclick="ModoEscuro()"><p class="p-modo-escuro-claro">Modo Escuro</p></a>
                         </li>
 
                         <li class="nav-item menu-menu-lateral-btns-fontSize">
@@ -150,6 +150,7 @@ let baseUrl = 'https://www.abibliadigital.com.br/api';
 let books = [];
 
 ListarLivros();  
+ModoEscuro();
 
 function ListarLivros(){
     fetch(baseUrl + '/books', options)
@@ -286,13 +287,17 @@ function ModoEscuro(){
     modoEscuro = !modoEscuro;
 
     let body = document.querySelector('body')
+    let color = "#0d0d0d";
 
-    body.style.backgroundColor = "#0d0d0d";
+    color = modoEscuro ? color : '#fff';
+
+    body.style.backgroundColor = color;
     body.style.color = "#a1a1a1";
 
     let menuVersos = document.querySelector('.container-chapters');
+    menuVersos.style.backgroundColor = color
 
-    menuVersos.style.backgroundColor = "#0d0d0d"
+    UpdateBtnClaroEscuro();
 }
 
 function OnFontSizeChange(operator){
@@ -303,5 +308,12 @@ function OnFontSizeChange(operator){
     }
 
     document.querySelector('body').style.fontSize = fontSize + 'em';
+}
+
+function UpdateBtnClaroEscuro(){
+    let text = 'Modo Claro';
+    text = modoEscuro ? 'Modo Claro' : 'Modo Escuro';
+
+    document.getElementsByClassName('p-modo-escuro-claro')[0].textContent = text;
 }
 </script>
