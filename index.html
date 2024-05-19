@@ -105,6 +105,9 @@
 
     <section class="container-all-txt">
         <div style="width: 86%;" id="chapter-btns-top"></div>
+        <select name="number-chapters" id="id-select-number-chapters">
+            <!-- <div id="opt-number-chapters">...</div> -->
+        </select>
         <section class="container-txt">
             <p id="texto"></p>
 
@@ -201,14 +204,33 @@ function CarregarLivrosMenuLateral(){
 
 function CarregarBotoesVersiculosMenuLateral(bookAbbrev){   
     let str2 = ''; 
+    let str3 = '';
+    let numberChapters = [];
     let _book = books.find(b => b.abbrev == bookAbbrev);    
 
     for (let index = 1; index <= _book.chapter; index++) {
         str2 += "<a class='chapter-btns-values' onclick='MontarTelaComCapitulo(\""+ index +"\")' value=" + index +">" + index + "</a>"; 
+        // str3 += "<option value='"+ index +"'>"+ index +"</option>";
+        numberChapters.push(index); 
+
+        console.log('chapter dentro: ', numberChapters);
     }
 
     document.getElementById('chapter-btns').innerHTML = str2;
     document.getElementById('chapter-btns-top').innerHTML = str2;
+    let languagesSelect = document.getElementById('id-select-number-chapters');
+    languagesSelect.options.length = 0;
+
+    numberChapters.map(chapter => {
+        console.log('chapter: ', chapter);
+    })
+
+    numberChapters.forEach((chapter) => {
+        option = new Option(chapter);
+        languagesSelect.options[languagesSelect.options.length] = option;
+    });
+
+    numberChapters = [];
 }
 
 function MontarTelaTexto(book, chapter){
